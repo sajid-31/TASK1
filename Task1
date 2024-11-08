@@ -1,0 +1,70 @@
+/*Starting with a dataset of  choice and performing EDA using libraries like pandas, numpy,
+and matplotlib or seaborn. Also exploring the data's characteristics, distributions, correlations,
+and outliers. Visualize your findings with histograms, scatter plots, and heatmaps to
+gain insights into the data.*/
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Define column names
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+
+# Load the dataset
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None, names=columns)
+
+# Display the first few rows of the dataset
+print("First few rows of the dataset:")
+print(df.head())
+
+# 1. Summary Statistics
+print("\nSummary Statistics:")
+
+print(df.describe(include='all'))
+
+# 2. Missing Values
+print("\nMissing Values:")
+
+print(df.isnull().sum())
+
+# 3. Distributions
+print("\nDistributions:")
+df.hist(bins=20, figsize=(14, 10))
+plt.tight_layout()
+plt.show()
+
+# 4. Correlations
+print("\nCorrelations:")
+
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+
+# Load the dataset
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None, names=columns)
+
+# Display the first few rows of the dataset
+
+print("First few rows of the dataset:")
+
+print(df.head())
+
+# Compute the correlation matrix
+correlation_matrix = df.iloc[:, :-1].corr()
+
+# Create a heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Matrix')
+plt.show()
+
+# 5. Scatter Plots
+print("\nScatter Plots:")
+sns.pairplot(df, hue='species', diag_kind='kde')
+plt.show()
+
+# 6. Outliers
+print("\nOutliers:")
+plt.figure(figsize=(14, 8))
+sns.boxplot(data=df.iloc[:, :-1], orient='h')
+plt.title('Boxplot for Outlier Detection')
+plt.show()
